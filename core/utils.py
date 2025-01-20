@@ -42,7 +42,7 @@ def drop_duplicates(csv_path):
     print(f"Se quitaron {n-m} registros duplicados")
     df.to_csv(csv_path, index=False)
 
-def load_config():
-    with open("config.json", "r", encoding="utf-8") as f:
+def load_config(config_path):
+    with open(config_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return json.loads(json.dumps(data))#, object_hook=lambda d: SimpleNamespace(**d))
