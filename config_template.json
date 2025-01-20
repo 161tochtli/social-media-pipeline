@@ -1,0 +1,14 @@
+{
+  "work_directory": "/path/to/working/dir",
+  "lvl1": {
+    "lvl2": {
+      "meta": {
+        "page_id": "lvl1_lvl2_page",
+        "account_id": "lvl1_lvl2_account",
+        "page_token": "lvl1_lvl2_page_token",
+        "user_token": "lvl1_lvl2_user_token",
+        "ig_page_id": "lvl1_lvl2_ig_page_id"
+      }
+    }
+  }
+}
