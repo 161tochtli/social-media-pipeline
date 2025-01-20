@@ -7,7 +7,7 @@ from tasks.instagram.get_ig_comments import download_ig_comments, process_ig_com
 from tasks.instagram.get_ig_comment_replies import download_ig_comment_replies, process_ig_comment_replies
 
 # Cargamos los valores de configuración
-config_data = load_config()
+config_data = load_config("config.json")
 wd = config_data["work_directory"]
 
 def update_feed_comments(brand, country, start_time=None, end_time=None, from_step=1):
