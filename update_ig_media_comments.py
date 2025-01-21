@@ -4,24 +4,23 @@ from core.utils import drop_duplicates, load_config
 from core.get_data import get_group_control
 from tasks.instagram.get_ig_media import download_ig_media, process_ig_media
 from tasks.instagram.get_ig_comments import download_ig_comments, process_ig_comments
-from tasks.instagram.get_ig_comment_replies import download_ig_comment_replies, process_ig_comment_replies
+from tasks.instagram.get_ig_comment_replies import download_ig_comment_replies, process_ig_comment_replies, account_ids
 
 # Cargamos los valores de configuración
 config_data = load_config("config.json")
 wd = config_data["work_directory"]
 
-def update_feed_comments(brand, country, start_time=None, end_time=None, from_step=1):
+def update_feed_comments(brand, country, token_type, start_time=None, end_time=None, from_step=1):
     try:
-        token = config_data[brand][country]["meta"]["page_token"]
+        token = config_data[brand][country]["meta"][f"{token_type}_token"]
         user_id = config_data[brand][country]["meta"]["ig_page_id"]
     except ValueError as e:
         print(f"Failed to retrieve value: Missing key '{e.args[0]}' for {brand} in {country}")
         raise
 
-    account_name = country+"_"+brand
-    print(f"Starting process for account: {account_name}")
+    print(f"Starting process for user: {user_id}")
     timestamp = f"{start_time.split('T')[0]}_{end_time.split('T')[0]}"
-    control_group = f"ig_media_comments_{account_name}_{timestamp}"
+    control_group = f"ig_media_comments_{brand}_{country}_{timestamp}"
 
     params = {"user_id": user_id, "country": country, "brand": brand}
 
@@ -84,6 +83,7 @@ if __name__ == '__main__':
     update_feed_comments(
         brand=args.brand,
         country=args.country,
+        token_type=args.token_type,
         start_time=args.start_date,
         end_time=args.end_date,
         from_step=args.from_step
